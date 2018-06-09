@@ -176,10 +176,9 @@ $(function() {
   }
 
   const receiveCall = (data) => {
-    console.log('Username : ', username, 'received : ', data.username);
     log('call from ' + data.username);
     function joinCallback () {
-      console.log('Yes join');
+      window.open('http://localhost:8000', '_blank');
     }
     var callMessage = data.username + " wants to connect over a call. Join?";
     $.confirm(
@@ -249,9 +248,8 @@ $(function() {
   });
 
   $clickHandler.on('click', function() {
-    console.log('Emitting call req', username);
     socket.emit('call request', username);
-    console.log('emitted');
+    window.open('http://localhost:8000', '_blank');
   });
 
   $inputMessage.on('input', () => {
