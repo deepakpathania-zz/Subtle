@@ -169,3 +169,14 @@ ul {
 	border: 2px solid #dadada;
   border-radius: 7px;
 }
+
+.clickHandler {
+  float: right;
+  margin-top: 10%;
+  padding-right: 5%;
+  font-size: 26px;
+}
+
+.clickHandler:hover {
+  cursor: pointer;
+}

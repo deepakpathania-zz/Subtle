@@ -12,6 +12,8 @@ $(function() {
   var $usernameInput = $('.usernameInput'); // Input for username
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
+  var $clickStarter = '';
+  var $clickHandler = $('.clickHandler');
 
   var $loginPage = $('.login.page'); // The login page
   var $chatPage = $('.chat.page'); // The chatroom page
@@ -69,7 +71,7 @@ $(function() {
   }
 
   // Log a message
-    const log = (message, options) => {
+  const log = (message, options) => {
     var $el = $('<li>').addClass('log').text(message);
     addMessageElement($el, options);
   }
@@ -149,6 +151,10 @@ $(function() {
     return $('<div/>').text(input).html();
   }
 
+  const receiveCall = (data) => {
+    log('call from ' + data.username);
+  }
+
   // Updates the typing event
   const updateTyping = () => {
     if (connected) {
@@ -207,6 +213,12 @@ $(function() {
     }
   });
 
+  $clickHandler.on('click', function() {
+    console.log('Emitting call req', username);
+    socket.emit('call request', username);
+    console.log('emitted');
+  });
+
   $inputMessage.on('input', () => {
     updateTyping();
   });
@@ -222,14 +234,13 @@ $(function() {
   $inputMessage.click(() => {
     $inputMessage.focus();
   });
-
   // Socket events
 
   // Whenever the server emits 'login', log the login message
   socket.on('login', (data) => {
     connected = true;
     // Display the welcome message
-    var message = "Welcome ";
+    var message = "Welcome";
     log(message, {
       prepend: true
     });
@@ -264,6 +275,10 @@ $(function() {
   // Whenever the server emits 'typing', show the typing message
   socket.on('typing', (data) => {
     addChatTyping(data);
+  });
+
+  socket.on('call response', (data) => {
+    receiveCall(data);
   });
 
   // Whenever the server emits 'stop typing', kill the typing message
