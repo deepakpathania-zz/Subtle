@@ -172,7 +172,7 @@ $(function() {
   // Gets the 'X is typing' messages of a user
   const getTypingMessages = (data) => {
     return $('.typing.message').filter(i => {
-      return $(this).data('username') === data.username;
+      return $(this);
     });
   }
 
@@ -245,6 +245,7 @@ $(function() {
   // Whenever the server emits 'new message', update the chat body
   socket.on('new message', (data) => {
     addChatMessage(data);
+    removeChatTyping(data);
   });
 
   // Whenever the server emits 'user joined', log it in the chat body
@@ -272,10 +273,12 @@ $(function() {
 
   socket.on('disconnect', () => {
     log('you have been disconnected');
+    removeChatTyping(data);
   });
 
   socket.on('reconnect', () => {
     log('you have been reconnected');
+    removeChatTyping(data);
     if (username) {
       socket.emit('add user', username);
     }
