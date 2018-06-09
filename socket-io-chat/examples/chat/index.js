@@ -29,7 +29,6 @@ io.on('connection', (socket) => {
     });
   });
 
-
   // when the client emits 'add user', this listens and executes
   socket.on('add user', (username) => {
     if (addedUser) return;
@@ -58,7 +57,6 @@ io.on('connection', (socket) => {
 
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', () => {
-    console.log('In typing');
     socket.broadcast.emit('typing', {
       username: socket.username
     });

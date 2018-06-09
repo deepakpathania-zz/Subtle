@@ -27,6 +27,30 @@ $(function() {
 
   var socket = io();
 
+  $.extend({ confirm: function (title, message, yesText, yesCallback) {
+      $("<div></div>").dialog( {
+          buttons: [{
+              text: yesText,
+              click: function() {
+                  yesCallback();
+                  $( this ).remove();
+              }
+          },
+          {
+              text: "Cancel",
+              click: function() {
+                  $( this ).remove();
+              }
+          }
+          ],
+          close: function (event, ui) { $(this).remove(); },
+          resizable: false,
+          title: title,
+          modal: true
+      }).text(message).parent().addClass("alert");
+    }
+  });
+
   const addParticipantsMessage = (data) => {
     var message = '';
     if (data.numUsers === 1) {
@@ -152,7 +176,18 @@ $(function() {
   }
 
   const receiveCall = (data) => {
+    console.log('Username : ', username, 'received : ', data.username);
     log('call from ' + data.username);
+    function joinCallback () {
+      console.log('Yes join');
+    }
+    var callMessage = data.username + " wants to connect over a call. Join?";
+    $.confirm(
+      "CONFIRM", //title
+      callMessage, //message
+      "Join", //button text
+      joinCallback //"yes" callback
+  );
   }
 
   // Updates the typing event
@@ -302,5 +337,30 @@ $(function() {
   socket.on('reconnect_error', () => {
     log('attempt to reconnect has failed');
   });
+
+  function ConfirmDialog(message) {
+    $('<div></div>').appendTo('body')
+    .html('<div><h6>'+message+'?</h6></div>')
+    .dialog({
+        modal: true, title: 'Delete message', zIndex: 10000, autoOpen: true,
+        width: 'auto', resizable: false,
+        buttons: {
+            Yes: function () {
+                // $(obj).removeAttr('onclick');                                
+                // $(obj).parents('.Parent').remove();
+
+                $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+
+                $(this).dialog("close");
+            },
+            No: function () {                                                                 
+                $(this).dialog("close");
+            }
+        },
+        close: function (event, ui) {
+            $(this).remove();
+        }
+    });
+  };
 
 });
