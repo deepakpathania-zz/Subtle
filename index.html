@@ -4,6 +4,8 @@
     <title>Subtle - The joy of dating</title>
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <script src="./AgoraRTCSDK-2.3.1.js"></script>
+    <link rel="stylesheet" href="vendor/font-awesome-4.7.0/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="vendor/custom.css"></link>
 
     <script src="vendor/jquery.js"></script>
   </head>
@@ -11,8 +13,10 @@
   <body onload="load()">
     <div id="div_join" class="panel panel-default">
     <div class="panel-body">
-      <button id="join" class="btn btn-primary" onclick="join()">Join</button>
-      <button id="leave" class="btn btn-primary" onclick="leave()">Leave</button>
+      <button id="join" class="btn join-call" onclick="join()"><i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+      <button id="leave" class="btn leave-call" onclick="leave()"><i class="fa fa-minus" aria-hidden="true"></i>
+      </button>
     </div>
     </div>
 

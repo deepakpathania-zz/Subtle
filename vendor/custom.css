@@ -1,0 +1,30 @@
+.join-call {
+    border-radius: 50%;
+    font-size: 21px;
+    background: #3eb991;
+    float: left;
+    border-color: #75c76a;
+    box-shadow: 1px 1px 1px 1px #3b8e3b;
+    color:whitesmoke;
+}
+.join-call:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+.leave-call {
+    border-radius: 50%;
+    font-size: 21px;
+    background: #e01563;
+    float: right;
+    border-color:#bf074d;
+    box-shadow: 1px 1px 1px 1px #942650;
+    color:whitesmoke;
+}
+.leave-call:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+.panel-body{
+    max-width: 80%;
+    margin-left: 10%;
+}
